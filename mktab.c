@@ -1,7 +1,7 @@
-/* mktab.c -- creates a table of bit patterns
- * to exchange bits in order to invert the weights
- * of the bits (exchange the MSB with the LSB, and
- * so on)
+/* mktab.c -- creates a function to invert the
+ * bits in a uint64_t exchanging the largest
+ * weighted bits with the less ones.
+ *
  * Author: Luis Colorado <luis.colorado.urcola@gmail.com>
  * Date: Sat Jul 30 11:25:33 EEST 2022
  * Copyright: (c) 2022 Luis Colorado.  All rights reserved.
@@ -18,13 +18,17 @@
 
 #define DEFAULT_N      (32)
 
+/* uncomment the printf in DEB_TAIL if you want to include 
+ * debug traces about the program doing. */
 #define F(_F_fmt) "%s:%04u:%s:"_F_fmt,__FILE__,__LINE__,__func__
 #define DEB_TAIL(_DEB_TAIL_fmt, ...) /* printf(_DEB_TAIL_fmt,##__VA_ARGS__) */
 #define DEB(_DEB_fmt, ...) DEB_TAIL(F("DEBUG: "_DEB_fmt),##__VA_ARGS__)
 
 struct masks {
-    uint64_t lft, rgt, unmov;
-    unsigned shift;
+    uint64_t lft,   /* left mast (to be shifted right) */
+			 rgt,   /* right mask (to be shifted left) */
+			 unmov; /* unmoved bits */
+    unsigned shift; /* amount to shift */
 };
 
 int compile(
@@ -55,7 +59,7 @@ int compile(
     assert(lvl1 == lvl2);
 
     return lvl1;
-}
+} /* compile */
 
 int
 main(int argc, char **argv)
@@ -89,7 +93,7 @@ main(int argc, char **argv)
     int lvl = compile(N, msk, 0, 0);
     DEB("compile(N=%d, msk, 0, 0) ==> %d\n", N, lvl);
 
-    printf("#include <stdint.h>\n"
+    printf("#include <stdint.h>\n\n"
            "uint64_t\n"
            "inv_%dbits(uint64_t in)\n"
            "{\n",
