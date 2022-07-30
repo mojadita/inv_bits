@@ -18,7 +18,7 @@
 
 #define DEFAULT_N      (32)
 
-/* uncomment the printf in DEB_TAIL if you want to include 
+/* uncomment the printf in DEB_TAIL if you want to include
  * debug traces about the program doing. */
 #define F(_F_fmt) "%s:%04u:%s:"_F_fmt,__FILE__,__LINE__,__func__
 #define DEB_TAIL(_DEB_TAIL_fmt, ...) /* printf(_DEB_TAIL_fmt,##__VA_ARGS__) */
@@ -26,8 +26,8 @@
 
 struct masks {
     uint64_t lft,   /* left mast (to be shifted right) */
-			 rgt,   /* right mask (to be shifted left) */
-			 unmov; /* unmoved bits */
+             rgt,   /* right mask (to be shifted left) */
+             unmov; /* unmoved bits */
     unsigned shift; /* amount to shift */
 };
 
@@ -71,10 +71,10 @@ main(int argc, char **argv)
     while ((opt = getopt(argc, argv, "n:")) != EOF) {
         switch (opt) {
         case 'n':
-			N = atoi(optarg);
-			break;
+            N = atoi(optarg);
+            break;
         case 'o':
-			out = fopen(optarg, "a+");
+            out = fopen(optarg, "a+");
             if (!out) {
                 fprintf(stderr,
                         "%s: %s\n",
@@ -119,7 +119,7 @@ main(int argc, char **argv)
         printf(";\n");
     } /* for */
     printf("    return in;\n} "
-		   "/* inv_%dbits */\n",
+           "/* inv_%dbits */\n",
            N);
     return 0;
 } /* main */
