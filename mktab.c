@@ -91,7 +91,7 @@ main(int argc, char **argv)
 
     printf("#include <stdint.h>\n"
            "uint64_t\n"
-           "inv_bits_%d(uint64_t in)\n"
+           "inv_%dbits(uint64_t in)\n"
            "{\n",
            N);
 
@@ -110,11 +110,12 @@ main(int argc, char **argv)
             printf(" << %d", disp);
         if (msk[i].unmov) {
             printf("\n       | (in & 0x%0*lx)",
-                    digs, msk[i].unmov);
+                   digs, msk[i].unmov);
         }
         printf(";\n");
-    }
-    printf("    return in;\n} /* inv_bits_%d */\n",
-            N);
+    } /* for */
+    printf("    return in;\n} "
+		   "/* inv_%dbits */\n",
+           N);
     return 0;
 } /* main */
