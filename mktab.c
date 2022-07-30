@@ -104,16 +104,16 @@ main(int argc, char **argv)
         int disp             = msk[i].shift;
         const char *sep      = "";
 
-        printf("    in = (in & 0x%0*lx)",
+        printf("    in = (in & 0x%0*lxUL)",
                 digs, msk[i].lft);
         if (disp)
             printf(" >> %d", disp);
-        printf("\n       | (in & 0x%0*lx)",
+        printf("\n       | (in & 0x%0*lxUL)",
                 digs, msk[i].rgt);
         if (disp)
             printf(" << %d", disp);
         if (msk[i].unmov) {
-            printf("\n       | (in & 0x%0*lx)",
+            printf("\n       | (in & 0x%0*lxUL)",
                    digs, msk[i].unmov);
         }
         printf(";\n");
